@@ -102,3 +102,34 @@ curl "http://127.0.0.1:8000/products/1/reserve?quantity=1000"
 ```
 
 В консоли сервера появятся строки `[ERROR] ...` (простое логирование через `print`).
+
+## Валидация запросов (User)
+
+**Эндпоинт:** `POST /users/register` — JSON-тело по модели `User` (`app/schemas/user.py`).
+
+| Поле | Проверка |
+|------|----------|
+| `username` | строка |
+| `age` | `int`, больше 18 (`Field(gt=18)`, аналог `conint`) |
+| `email` | `EmailStr` |
+| `password` | длина 8–16 (`Field`, аналог `constr`) |
+| `phone` | необязательный `str`, по умолчанию `"Unknown"` |
+
+Ошибки валидации обрабатываются через `@app.exception_handler(RequestValidationError)` — ответ **422** с полями `error_code`, `message`, `status_code`, `details[]`.
+
+**Пример валидного запроса:**
+
+```json
+{
+  "username": "alice",
+  "age": 25,
+  "email": "alice@example.com",
+  "password": "secret123"
+}
+```
+
+**Автотест:**
+
+```powershell
+.\.venv\Scripts\python scripts\test_validation.py
+```

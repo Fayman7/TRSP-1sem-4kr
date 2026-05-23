@@ -5,13 +5,15 @@ from app.database import get_db
 from app.error_handlers import register_exception_handlers
 from app.exceptions import CustomExceptionA, CustomExceptionB
 from app.models import Product
-from app.schemas.errors import ErrorResponse
+from app.schemas.errors import ErrorResponse, ValidationErrorResponse
+from app.schemas.user import User
 
 app = FastAPI(
     title="Products API",
     responses={
         400: {"model": ErrorResponse, "description": "Business rule violation"},
         404: {"model": ErrorResponse, "description": "Resource not found"},
+        422: {"model": ValidationErrorResponse, "description": "Validation failed"},
     },
 )
 
@@ -61,6 +63,20 @@ def reserve_product(
         "product_id": product_id,
         "reserved": quantity,
         "remaining": product.count - quantity,
+    }
+
+
+@app.post(
+    "/users/register",
+    status_code=201,
+    responses={422: {"model": ValidationErrorResponse}},
+)
+def register_user(user: User):
+    return {
+        "username": user.username,
+        "age": user.age,
+        "email": str(user.email),
+        "phone": user.phone,
     }
 
 
