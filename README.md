@@ -133,3 +133,20 @@ curl "http://127.0.0.1:8000/products/1/reserve?quantity=1000"
 ```powershell
 .\.venv\Scripts\python scripts\test_validation.py
 ```
+
+## Модульные тесты (pytest)
+
+In-memory API `/records` (три эндпоинта):
+
+| Метод | Путь | Действие |
+|-------|------|----------|
+| `POST` | `/records/` | регистрация (создание) |
+| `GET` | `/records/{id}` | получение |
+| `DELETE` | `/records/{id}` | удаление |
+
+Хранилище: словарь в `app/store.py`.
+
+```powershell
+.\.venv\Scripts\pip install pytest
+.\.venv\Scripts\pytest tests/ -v
+```
