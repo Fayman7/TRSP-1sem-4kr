@@ -7,6 +7,7 @@ from app.exceptions import CustomExceptionA, CustomExceptionB
 from app.models import Product
 from app.schemas.errors import ErrorResponse, ValidationErrorResponse
 from app.routers import records as records_router
+from app.routers import users_memory as users_memory_router
 from app.schemas.user import User
 
 app = FastAPI(
@@ -20,6 +21,7 @@ app = FastAPI(
 
 register_exception_handlers(app)
 app.include_router(records_router.router)
+app.include_router(users_memory_router.router)
 
 
 @app.get("/products")

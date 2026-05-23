@@ -2,5 +2,15 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Local database and secrets
 products.db
 .env
+
+# IDE
+.idea/
+.vscode/
