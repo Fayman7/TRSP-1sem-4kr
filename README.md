@@ -1,12 +1,6 @@
-# FastAPI Products — учебный проект
+# FastAPI учебный проект
 
-FastAPI-приложение с миграциями Alembic (SQLite), обработкой ошибок, валидацией Pydantic, in-memory API и pytest-тестами.
-
-**Требования:** Python 3.11+ (проверено на 3.14), Windows / Linux / macOS.
-
----
-
-## Быстрый старт для проверяющего
+## Быстрый старт
 
 Все команды — из корня проекта `fastapi-alembic-products`.
 
